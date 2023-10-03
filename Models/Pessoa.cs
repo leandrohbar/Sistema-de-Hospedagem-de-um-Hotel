@@ -1,4 +1,4 @@
-namespace DesafioProjetoHospedagem.Models;
+namespace SistemaDeHospedagemDeUmHotel.Models;
 
 public class Pessoa
 {
@@ -17,5 +17,7 @@ public class Pessoa
 
     public string Nome { get; set; }
     public string Sobrenome { get; set; }
-    public string NomeCompleto => $"{Nome} {Sobrenome}".ToUpper();
+    public string NomeCompleto => $"{Nome.Substring(0, 1).ToUpper() + Nome.Substring(1).ToLower()}"
+                        + " " + $"{Sobrenome.Substring(0, 1).ToUpper() + Sobrenome.Substring(1).ToLower()}";
+    
 }

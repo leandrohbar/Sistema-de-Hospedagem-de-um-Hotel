@@ -1,4 +1,4 @@
-namespace DesafioProjetoHospedagem.Models
+namespace SistemaDeHospedagemDeUmHotel.Models
 {
     public class Suite
     {
