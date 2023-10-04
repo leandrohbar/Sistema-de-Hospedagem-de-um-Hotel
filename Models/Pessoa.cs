@@ -11,8 +11,15 @@ public class Pessoa
 
     public Pessoa(string nome, string sobrenome)
     {
-        Nome = nome;
-        Sobrenome = sobrenome;
+        if (nome == "")
+        {    
+            throw new Exception();    
+        }
+        else
+        {
+            Nome = nome;
+            Sobrenome = sobrenome;
+        }
     }
 
     public string Nome { get; set; }

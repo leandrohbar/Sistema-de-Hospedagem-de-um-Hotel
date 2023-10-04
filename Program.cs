@@ -7,10 +7,11 @@ Console.OutputEncoding = Encoding.UTF8;
 Console.WriteLine("Bem vindo ao sistema de hospedagem de um hotel");
 Console.Write("Digite a quantidade de dias que deseja reservar: ");
 int diasReservados = Convert.ToInt32(Console.ReadLine());
+// Instanciar a classe Reserva
 Reserva reserva = new Reserva(diasReservados: diasReservados);
 
 while (true)
-{
+{ // Menu principal
     Console.Clear();
     
     Console.WriteLine("O que deseja fazer?");
@@ -23,40 +24,52 @@ while (true)
 
 
     switch (Console.ReadLine())
-    {
-        case "2":
+    { // Menu de opções
+        case "2": // Cadastrar hóspedes
             if (reserva.Suite == null)
-            {
+            {// Verificar se a suíte foi escolhida
                 Console.WriteLine("Escolha uma suíte antes de cadastrar os hóspedes");
                 break;
             }
 
-            Console.WriteLine();
-            Console.Write("Quantos hóspedes deseja cadastrar? ");
-            List<Pessoa> hospede = new List<Pessoa>(Convert.ToInt32(Console.ReadLine()));
-
-            if (reserva.Suite.Capacidade < hospede.Capacity)
+            try // Verificar se a quantidade de hóspedes é maior que a capacidade da suíte
             {
-                Console.WriteLine("A quantidade de hóspedes é maior que a capacidade da suíte"
-                + " escolha outra suíte ou diminua a quantidade de hóspedes.");
+                Console.WriteLine();
+                Console.Write("Quantos hóspedes deseja cadastrar? ");
+                List<Pessoa> hospede = new List<Pessoa>(Convert.ToInt32(Console.ReadLine()));
+                reserva.CapacidadeHospedes(hospede);
+
+                if (reserva.Hospedes == null)
+                {
+                    break;
+                }
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Cadastre pelo menos um hóspede");
                 break;
             }
             
-
-            for (int i = 0; i < hospede.Capacity; i++)
+            // Cadastrar hóspedes
+            for (int i = 0; i < reserva.Hospedes.Capacity; i++)
                 {
-                Console.WriteLine("Digite o NOME do hóspede e aperte ENTER "
-                + "em seguida digite o SOBRENOME do hóspede: ");
+                try
+                    {
+                    Console.WriteLine("Digite o NOME do hóspede e aperte ENTER "
+                    + "em seguida digite o SOBRENOME do hóspede: ");
 
-                string nome = Console.ReadLine();
-                string sobrenome = Console.ReadLine();
-                hospede.Add(new Pessoa(nome: nome,sobrenome: sobrenome));
+                    string nome = Console.ReadLine();
+                    string sobrenome = Console.ReadLine();
+                    reserva.Hospedes.Add(new Pessoa(nome: nome,sobrenome: sobrenome));
+                    }
+                catch (Exception)
+                {
+                    Console.WriteLine("Nome e sobrenome não podem estar vazios");
+                    break;
                 }
-
-            reserva.CadastrarHospedes(hospede);
-            
+                }
             break;
-        case "1":
+        case "1": // Escolher suíte
             TiposSuite tiposSuite = new TiposSuite();
             Console.WriteLine("Escolha uma suíte disponível: ");
             Console.WriteLine();
@@ -80,7 +93,7 @@ while (true)
             reserva.CadastrarSuite(suite);
 
             break;
-        case "3":
+        case "3": // Fazer reserva
             if (reserva.Hospedes == null)
             {
                 Console.WriteLine("Cadastrae os hóspedes primeiro");
@@ -113,7 +126,7 @@ while (true)
                 break;
             }
             break;
-        case "4":
+        case "4": // Sair
             Console.WriteLine("Obrigado por utilizar nossos serviços!");
             Environment.Exit(0);
             break;

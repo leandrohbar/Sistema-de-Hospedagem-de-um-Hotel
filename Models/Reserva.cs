@@ -13,9 +13,18 @@ namespace SistemaDeHospedagemDeUmHotel.Models
             DiasReservados = diasReservados;
         }
 
-        public void CadastrarHospedes(List<Pessoa> hospedes)
+        public void CapacidadeHospedes(List<Pessoa> hospedes)
         {
-            Hospedes = hospedes;
+            if (Suite.Capacidade < hospedes.Capacity)
+            {
+                Console.WriteLine("A quantidade de hóspedes é maior que a capacidade da suíte,"
+                + " escolha outra suíte ou diminua a quantidade de hóspedes.");
+                Hospedes = null;
+            }
+            else
+            {
+                Hospedes = hospedes;
+            }
         }
 
         public void CadastrarSuite(Suite suite)
