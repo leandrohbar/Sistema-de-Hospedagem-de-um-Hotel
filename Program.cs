@@ -5,8 +5,17 @@ using SistemaDeHospedagemDeUmHotel.Models;
 Console.OutputEncoding = Encoding.UTF8;
 
 Console.WriteLine("Bem vindo ao sistema de hospedagem de um hotel");
-Console.Write("Digite a quantidade de dias que deseja reservar: ");
-int diasReservados = Convert.ToInt32(Console.ReadLine());
+
+int diasReservados;
+while (true)
+{
+    Console.Write("Digite a quantidade de dias que deseja reservar: ");
+    if (int.TryParse(Console.ReadLine(), out diasReservados) && diasReservados > 0)
+    {
+        break;
+    }
+    Console.WriteLine("A quantidade de dias deve ser um número inteiro e deve ser maior que 0");
+}
 // Instanciar a classe Reserva
 Reserva reserva = new Reserva(diasReservados: diasReservados);
 
